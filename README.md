@@ -1,6 +1,6 @@
 <h1>Car Rental System</h1>
 
-<li>A car rental system built in Java. This application allows users to manage car rentals, including adding new cars, renting out cars, and returning cars. It also provides an interface for administrators to manage </li>
+<p>A car rental system built in Java. This application allows users to manage car rentals, including adding new cars, renting out cars, and returning cars. It also provides an interface for administrators to manage </p>
 the car inventory and view rental history.
 
 <H1>Features</H1>
