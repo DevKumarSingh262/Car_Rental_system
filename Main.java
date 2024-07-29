@@ -16,6 +16,7 @@ class Car {
         this.basePricePerDay = basePricePerDay;
         this.isAvailable = true;
     }
+
     public String getCarId() {
         return carId;
     }
@@ -110,7 +111,6 @@ class CarRentalSystem {
         if (car.isAvailable()) {
             car.rent();
             rentals.add(new Rental(car, customer, days));
-
         } else {
             System.out.println("Car is not available for rent.");
         }
@@ -127,9 +127,34 @@ class CarRentalSystem {
         }
         if (rentalToRemove != null) {
             rentals.remove(rentalToRemove);
-
         } else {
             System.out.println("Car was not rented.");
+        }
+    }
+
+    public void viewActiveRentals() {
+        System.out.println("\n== Active Rentals ==\n");
+        for (Rental rental : rentals) {
+            Car car = rental.getCar();
+            Customer customer = rental.getCustomer();
+            System.out.println("Car ID: " + car.getCarId() + ", Brand: " + car.getBrand() + ", Model: " + car.getModel());
+            System.out.println("Customer ID: " + customer.getCustomerId() + ", Name: " + customer.getName());
+            System.out.println("Rental Days: " + rental.getDays());
+            System.out.println("----------------------");
+        }
+    }
+
+    public void searchRentalHistory(String searchTerm) {
+        System.out.println("\n== Rental History ==\n");
+        for (Rental rental : rentals) {
+            Car car = rental.getCar();
+            Customer customer = rental.getCustomer();
+            if (car.getCarId().equals(searchTerm) || customer.getCustomerId().equals(searchTerm)) {
+                System.out.println("Car ID: " + car.getCarId() + ", Brand: " + car.getBrand() + ", Model: " + car.getModel());
+                System.out.println("Customer ID: " + customer.getCustomerId() + ", Name: " + customer.getName());
+                System.out.println("Rental Days: " + rental.getDays());
+                System.out.println("----------------------");
+            }
         }
     }
 
@@ -140,7 +165,9 @@ class CarRentalSystem {
             System.out.println("===== Car Rental System =====");
             System.out.println("1. Rent a Car");
             System.out.println("2. Return a Car");
-            System.out.println("3. Exit");
+            System.out.println("3. View Active Rentals");
+            System.out.println("4. Search Rental History");
+            System.out.println("5. Exit");
             System.out.print("Enter your choice: ");
 
             int choice = scanner.nextInt();
@@ -229,6 +256,12 @@ class CarRentalSystem {
                     System.out.println("Invalid car ID or car is not rented.");
                 }
             } else if (choice == 3) {
+                viewActiveRentals();
+            } else if (choice == 4) {
+                System.out.print("Enter car ID or customer ID to search: ");
+                String searchTerm = scanner.nextLine();
+                searchRentalHistory(searchTerm);
+            } else if (choice == 5) {
                 break;
             } else {
                 System.out.println("Invalid choice. Please enter a valid option.");
@@ -237,13 +270,13 @@ class CarRentalSystem {
 
         System.out.println("\nThank you for using the Car Rental System!");
     }
-
 }
-public class Main{
+
+public class Main {
     public static void main(String[] args) {
         CarRentalSystem rentalSystem = new CarRentalSystem();
 
-        Car car1 = new Car("C001", "Toyota", "Camry", 60.0); // Different base price per day for each car
+        Car car1 = new Car("C001", "Toyota", "Camry", 60.0);
         Car car2 = new Car("C002", "Honda", "Accord", 70.0);
         Car car3 = new Car("C003", "Mahindra", "Thar", 150.0);
         rentalSystem.addCar(car1);
